@@ -15,17 +15,31 @@ public class BouclesFor {
 	}
 
 	public int[] construireTableau() {
+		int[] tableau = new int[10];
+		for (int i = 0; i < tableau.length; i++) {
+			tableau[i] = (i + 1);
+		}
 		if (debut == null || fin == null) {
 			return construireTableauSansBornes();
 		} else {
-			return construireTableauAvecBornes();
+			return tableau; // construireTableauAvecBornes();
 		}
 	}
 
 	public int[] construireTableauInverse() {
-		return null;
+		int[] tableau = construireTableau();
+		int[] inverse = new int[10];
+		int j = 0;
+		for (int i = 9; i >=0 ; i--) {
+			
+			inverse[i] = tableau[j];
+			j++;
+		}
+		return inverse;// tableau inverse
 	}
+	
 
+	
 	public int[] construireTableauEntiersPairs() {
 		return null;
 	}
@@ -49,7 +63,7 @@ public class BouclesFor {
 	public int[] construireTableauAvecWhile() {
 		return null;
 	}
-	
+
 	public int[] construireTableauEntiersPairsAvecWhile() {
 		return null;
 	}

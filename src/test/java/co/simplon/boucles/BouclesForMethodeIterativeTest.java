@@ -13,6 +13,8 @@ public class BouclesForMethodeIterativeTest {
 		int[] tableau = boucle.construireTableau();
 		
 		assertEquals(10, tableau.length);
+		assertEquals(10, tableau[9]);
+		assertEquals(1, tableau[0]);
 	}
 
 	@Test
@@ -22,8 +24,8 @@ public class BouclesForMethodeIterativeTest {
 		int[] tableau = boucle.construireTableauInverse();
 		
 		assertEquals(10, tableau.length);
-		assertEquals(10, tableau[0]);
 		assertEquals(1, tableau[9]);
+		assertEquals(10, tableau[0]);
 	}
 	
 	@Test
