@@ -1,64 +1,175 @@
 package co.simplon.boucles;
 
 public class BouclesFor {
+	// ceci est une constante de la classe
 	public static final int MAX_SUPPORTED = 100;
 
+	// des attributs d'instance qui permettent de définir un entier de début et
+	// un entier de fin
 	private Integer debut = null;
 	private Integer fin = null;
 
+	private int tailleTableau = 0;
+
+	/**
+	 * Constructeur par défaut
+	 */
 	public BouclesFor() {
 	}
 
+	/**
+	 * Constructeur avec bornes
+	 * 
+	 * @param debut
+	 *            Borne de début
+	 * @param fin
+	 *            Borne de fin
+	 */
 	public BouclesFor(int debut, int fin) {
 		this.debut = debut;
 		this.fin = fin;
 	}
 
 	public int[] construireTableau() {
-		int[] tableau = new int[10];
-		for (int i = 0; i < tableau.length; i++) {
-			tableau[i] = (i + 1);
-		}
 		if (debut == null || fin == null) {
+			tailleTableau = MAX_SUPPORTED;
 			return construireTableauSansBornes();
 		} else {
-			return tableau; // construireTableauAvecBornes();
+			tailleTableau = this.fin - this.debut + 1;
+			return construireTableauAvecBornes();
 		}
 	}
 
 	public int[] construireTableauInverse() {
-		int[] tableau = construireTableau();
-		int[] inverse = new int[10];
-		int j = 0;
-		for (int i = 9; i >=0 ; i--) {
-			
-			inverse[i] = tableau[j];
-			j++;
-		}
-		return inverse;// tableau inverse
-	}
-	
+		tailleTableau = this.fin - this.debut + 1;
+		int[] tableauInverse = new int[tailleTableau];
 
-	
+		int valeur = this.fin;
+		for (int index = 0; index < tailleTableau; index++, valeur--) {
+			tableauInverse[index] = valeur;
+		}
+
+		return tableauInverse;
+	}
+
+	/**
+	 * Solution reposant sur le tableau en sens croissant
+	 * 
+	 * @return
+	 */
+	public int[] construireTableauInverseSolutionAlternative() {
+		int[] tableau = construireTableau();
+		int[] tableauInverse = new int[tailleTableau];
+
+		int j = tailleTableau - 1;
+		for (int i = 0; i < tailleTableau; i++, j--) {
+			tableauInverse[i] = tableau[j];
+		}
+
+		return tableauInverse;
+	}
+
 	public int[] construireTableauEntiersPairs() {
-		return null;
+		tailleTableau = (this.fin - this.debut + 1) / 2;
+		int[] tableau = new int[tailleTableau];
+
+		for (int i = this.debut, index = 0; i <= this.fin; i++) {
+			if (i % 2 == 0) {
+				tableau[index] = i;
+				index++;
+			}
+		}
+
+		return tableau;
+	}
+
+	public int[] construireTableauEntiersPairsParcoursTableau() {
+		tailleTableau = (this.fin - this.debut + 1) / 2;
+		int[] tableau = new int[tailleTableau];
+
+		// je détermine la valeur de la première case de mon tableau
+		int valeur = this.debut;
+		if (valeur % 2 != 0) {
+			valeur++;
+		}
+
+		for (int index = 0; index < tailleTableau; index++, valeur += 2) {
+			tableau[index] = valeur;
+		}
+
+		return tableau;
 	}
 
 	private int[] construireTableauAvecBornes() {
-		return null;
+		int[] tableau = new int[tailleTableau];
+
+		int index = 0;
+		for (int i = this.debut; i <= this.fin; i++) {
+			tableau[index++] = i;
+		}
+
+		return tableau;
+	}
+
+	private int[] construireTableauSansBornesVersionSimple() {
+		int[] tableau = new int[tailleTableau];
+
+		for (int index = 0; index < tailleTableau; index++) {
+			tableau[index] = index + 1;
+		}
+
+		return tableau;
 	}
 
 	private int[] construireTableauSansBornes() {
-		return null;
+		int[] tableau = new int[tailleTableau];
+
+		int index = 0;
+		for (;;) {
+			if (index == MAX_SUPPORTED) {
+				break;
+			}
+			tableau[index] = ++index;
+		}
+
+		return tableau;
 	}
 
 	public String[] suffixerTableau(String[] tableauEntree, String suffixe) {
-		return null;
+		String[] tableauSortie = new String[tableauEntree.length];
+
+		int index = 0;
+		for (String element : tableauEntree) {
+
+			tableauSortie[index] = element + suffixe;
+			++index;
+		}
+
+		return tableauSortie;
 	}
 
 	public Integer[] applanirMatrice(Integer[][] matrice) {
-		return null;
-	}
+	     int tailleTableau = 0;
+	        
+	        if (matrice.length != 0) {
+	            for (Integer[] ligne : matrice)
+	                tailleTableau = tailleTableau + ligne.length;
+	        }
+	        
+	        Integer[] tableauSortie = new Integer[tailleTableau];    
+	        
+	        if (matrice.length != 0) {
+	            int index = 0;
+	            for (Integer[] ligne : matrice) {
+	                for (Integer element : ligne) {
+	                    tableauSortie[index++] = element;
+	                }
+	            }
+	        }
+	        
+	        return tableauSortie;
+	    }
+	
 
 	public int[] construireTableauAvecWhile() {
 		return null;
